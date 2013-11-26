@@ -1,0 +1,20 @@
+<% if image %> 
+  <%= link_to_image(image.attachment, @product.name) %>
+<% else %>
+  <%= link_to_main_product_image(@product) %>
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery.colorbox-min' %>
+  <%= stylesheet_link_tag 'colorbox' %>
+  <script>
+    $(document).ready(function(){
+    $("a[rel*=colorbox_product_images]").colorbox({current: "{current} из {total}"});
+      $("a[rel*=colorbox_product_images_duplication]").click(function() {
+        $('a[rel="colorbox_product_images"]').eq(0).click();
+        return false; // prevents the default action of the anchor, which may be reloading the page.
+      }); 
+    });
+  </script>
+<% end %>
+
